@@ -1,31 +1,27 @@
-#!/bin/zsh
+#!/usr/bin/env bash
+set -euo pipefail
 
-# install new zsh
-echo "\nInstalling zsh..."
-brew install zsh
+repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# install oh-my-zsh
-echo "\nInstalling oh-my-zsh with plugins and theme..."
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" "" --unattended
+copy_path() {
+  local rel="$1"
+  local src="$repo_dir/$rel"
+  local dest="$HOME/$rel"
 
-# install syntax highlighting and auto suggestions oh-my-zsh plugins
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  if [[ -e "$src" ]]; then
+    mkdir -p "$(dirname "$dest")"
+    cp -a "$src" "$dest"
+    echo "copied $rel"
+  fi
+}
 
-# install neovim
-echo "\nInstalling neovim..."
-brew install neovim
+copy_path .zshrc
+copy_path .tmux.conf
+copy_path .config/starship.toml
+copy_path .config/nvim
+copy_path .config/i3
+copy_path .config/ghostty
+copy_path .config/tmux
+copy_path .screenlayout
 
-# install tmux
-echo "\nInstalling tmux..."
-brew install tmux
-
-# install starship
-echo "\nInstalling starship..."
-brew install starship
-
-# reload config from new dot files
-echo "\nReloading shell with new dot files..."
-cp -r .zshrc .config .tmux.conf ~
-. ~/.zshrc
-zsh
+echo "done. restart shells/apps or source changed files as needed."

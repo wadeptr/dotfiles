@@ -1,5 +1,5 @@
 function Colors(color)
-	color = color or "gruvbox"
+	color = color or "gruvbox-material"
 	vim.cmd.colorscheme(color)
 
 	-- gruvbox doesn't support transparent background

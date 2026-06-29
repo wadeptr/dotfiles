@@ -1,34 +1,61 @@
 # dotfiles
-A set of basic dot files for shell and neovim configuration: 
 
-- zsh
-- oh-my-zsh
-- starship
-- neovim
-- tmux
+Public dotfiles for my development environments.
 
-To build a complete shell config from fresh installations on macOS, execute the following steps. Otherwise any individual files or snippets can be taken and added to other existing environments or operating systems.
+## Branches
 
-#### Clone Repo and Run Script
+- `linux`: Linux desktop setup for i3, Ghostty, tmux, zsh, Starship, and Neovim.
+- `macos`: macOS setup branch. Keep macOS-specific package/install choices there.
+
+This branch is the Linux branch. It stores files using home-relative paths so they can be copied directly into `$HOME`.
+
+## Included on Linux
+
+- `.config/nvim/` - Neovim config and plugin specs, excluding generated plugin output
+- `.config/i3/` - i3, i3blocks, and related desktop status config
+- `.config/ghostty/` - Ghostty terminal config
+- `.config/tmux/` - tmux helper scripts
+- `.config/starship.toml` - Starship prompt config
+- `.screenlayout/default-layout.sh` - monitor layout
+- `.tmux.conf` - tmux config
+- `.zshrc` - zsh shell config
+
+## Intentionally Excluded
+
+Do not add browser profiles, credentials, SSH/GPG material, API tokens, agent state, generated caches, local app databases, or plugin build output. Examples: `.ssh/`, `.aws/`, `.config/google-chrome/`, `.config/BraveSoftware/`, `.config/obsidian/`, `.codex/`, `.agents/`, Neovim `plugin/packer_compiled.lua`, and package caches.
+
+## Install / Refresh
+
+From this branch:
+
 ```bash
-# clone dotfiles
-git clone https://github.com/brockwade633/dotfiles.git
-
-# enter repo
-cd dotfiles
-
-# execute fresh installs, reload shell with the new dotfiles
 ./reload-config.sh
 ```
 
-#### Sync Neovim Plugins
-To make sure all the plugins are installed, open `plug.lua` and run `luafile %` to source, then `:PackerInstall` and/or `:PackerSync` to bring down the plugins. Run `:PackerStatus` to verify they're all there. Some plugins may require manually loading before syncing again: `:PackerLoad <plugin>`.
+The script copies the tracked home-relative files into `$HOME`. Review changes before running it on a new machine.
 
-#### Font
-Follow [these instructions](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k) to install the `MesloLGS NF` font and use it in your terminal of choice.
+## Expected Linux Dependencies
 
-#### Optional
-Run `nvim` on `vim` commands
-```bash
-ln -s (which nvim) /usr/local/bin/vim
+Install these through your system package manager or existing bootstrap process:
+
+- zsh and Oh My Zsh
+- zsh-syntax-highlighting
+- zsh-autosuggestions
+- starship
+- tmux
+- ghostty
+- i3, i3blocks, xrandr
+- neovim
+- git, ripgrep, fd/findutils, make, cargo
+- MesloLGS NF or another Nerd Font
+
+## Neovim Plugins
+
+Packer is used for plugin management. If plugins are missing, bootstrap `packer.nvim`, then run:
+
+```vim
+:lua require("bwade.packer")
+:PackerSync
 ```
+
+Generated plugin files are intentionally not tracked.
