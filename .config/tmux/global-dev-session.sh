@@ -12,3 +12,4 @@ tmux new-window -t $SESSION -n "local-server"
 
 tmux select-window -t $SESSION:local-dev
 exec tmux attach -t $SESSION
+

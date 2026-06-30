@@ -1,5 +1,6 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show diagnostic" })
 
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -52,3 +53,4 @@ vim.keymap.set("t", "<M-h>", terminal_normal .. "<C-w>h", { desc = "Focus left w
 vim.keymap.set("t", "<M-j>", terminal_normal .. "<C-w>j", { desc = "Focus lower window" })
 vim.keymap.set("t", "<M-k>", terminal_normal .. "<C-w>k", { desc = "Focus upper window" })
 vim.keymap.set("t", "<M-l>", terminal_normal .. "<C-w>l", { desc = "Focus right window" })
+

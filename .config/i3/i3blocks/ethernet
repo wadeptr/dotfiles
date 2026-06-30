@@ -65,3 +65,4 @@ DISPLAY="$UP_ICON $IFACE $IP @ $SPEED ↓ $RX_MBPS Mb/s ↑ $TX_MBPS Mb/s"
 echo "$DISPLAY"
 echo "$DISPLAY"
 echo "#879a39"
+
