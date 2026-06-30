@@ -74,7 +74,7 @@ commit_msg_file="$(mktemp)"
 trap "rm -f \"$commit_msg_file\"" EXIT
 
 {
-  echo "Synced Linux dotfiles from $HOME."
+  echo "Automated Linux dotfiles sync from $HOME."
   echo
   echo "Changed files:"
   printf "%s\n" "$changed_files" | sed "s/^/- /"
