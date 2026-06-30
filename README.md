@@ -24,6 +24,16 @@ This branch is the Linux branch. It stores files using home-relative paths so th
 
 Do not add browser profiles, credentials, SSH/GPG material, API tokens, agent state, generated caches, local app databases, or plugin build output. Examples: `.ssh/`, `.aws/`, `.config/google-chrome/`, `.config/BraveSoftware/`, `.config/obsidian/`, `.codex/`, `.agents/`, Neovim `plugin/packer_compiled.lua`, and package caches.
 
+## Sync From This Linux Machine
+
+To update this repository from the curated Linux config files in `$HOME`, run:
+
+```bash
+./sync-linux-from-home.sh
+```
+
+The script only runs on the `linux` branch, aborts if the repo has uncommitted changes, syncs the Linux allowlist from `$HOME`, commits any detected changes, and pushes only `origin linux`.
+
 ## Install / Refresh
 
 From this branch:
