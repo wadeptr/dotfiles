@@ -1,5 +1,25 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local packer_bootstrap = false
+
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  local clone_output = vim.fn.system({
+    "git",
+    "clone",
+    "--depth",
+    "1",
+    "https://github.com/wbthomason/packer.nvim",
+    install_path,
+  })
+
+  if vim.v.shell_error ~= 0 then
+    error("Failed to install packer.nvim:\n" .. vim.fn.trim(clone_output))
+  end
+
+  vim.cmd.packadd("packer.nvim")
+  packer_bootstrap = true
+end
 
 return require('packer').startup(function(use)
   -- Packer can manage itself
@@ -24,8 +44,7 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-treesitter/nvim-treesitter',
-    branch = 'main',
-    run = ':TSUpdate'
+    branch = 'main'
   }
 
   use {
@@ -83,4 +102,8 @@ return require('packer').startup(function(use)
     -- builds Rust fuzzy matcher
     run = 'cargo build --release',
   }
+
+  if packer_bootstrap then
+    require("packer").sync()
+  end
 end)
