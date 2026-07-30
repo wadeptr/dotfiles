@@ -5,8 +5,8 @@ repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$repo_dir"
 
 branch="$(git branch --show-current)"
-if [[ "$branch" != "linux" ]]; then
-  echo "error: sync-linux-from-home.sh only runs on the linux branch (current: $branch)" >&2
+if [[ "$branch" != "macos" ]]; then
+  echo "error: sync-macos-from-home.sh only runs on the macos branch (current: $branch)" >&2
   exit 1
 fi
 
@@ -17,14 +17,14 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
 fi
 
 paths=(
+  ".gitconfig"
   ".zshrc"
   ".tmux.conf"
+  ".config/git/ignore"
   ".config/starship.toml"
   ".config/nvim"
-  ".config/i3"
   ".config/ghostty"
   ".config/tmux"
-  ".screenlayout"
 )
 
 sync_path() {
@@ -39,7 +39,7 @@ sync_path() {
 
   rm -rf "$dest"
   mkdir -p "$(dirname "$dest")"
-  cp -a "$src" "$dest"
+  cp -pR "$src" "$dest"
   echo "synced $rel"
 }
 
@@ -49,15 +49,14 @@ done
 
 # Generated/local files that should never be committed to this public repo.
 rm -f .config/nvim/plugin/packer_compiled.lua
-rm -f nvim/plugin/packer_compiled.lua
 find . -name ".DS_Store" -delete
 find . -name "*.swp" -delete
 find . -name "*.swo" -delete
 
-git add -A -- "${paths[@]}" .gitignore README.md reload-config.sh sync-linux-from-home.sh
+git add -A -- "${paths[@]}" .gitignore README.md reload-config.sh sync-macos-from-home.sh
 
 if git diff --cached --quiet; then
-  echo "No Linux dotfile updates found."
+  echo "No macOS dotfile updates found."
   exit 0
 fi
 
@@ -71,14 +70,14 @@ fi
 
 changed_files="$(git diff --cached --name-only)"
 commit_msg_file="$(mktemp)"
-trap "rm -f \"$commit_msg_file\"" EXIT
+trap 'rm -f "$commit_msg_file"' EXIT
 
 {
-  echo "Automated Linux dotfiles sync from $HOME."
+  echo "Sync macOS dotfiles from \$HOME."
   echo
   echo "Changed files:"
   printf "%s\n" "$changed_files" | sed "s/^/- /"
 } > "$commit_msg_file"
 
 git commit -F "$commit_msg_file"
-git push origin linux
+git push origin macos

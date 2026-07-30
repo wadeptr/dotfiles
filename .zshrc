@@ -1,18 +1,15 @@
+ZSH_DISABLE_COMPFIX=true
 
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
-export PATH=$PATH:/opt/nvim-linux-x86_64/bin
-
-# Add Lsps to path
-export PATH=$PATH:$HOME/lsps/lua-language-server/lua-language-server
+# Homebrew uses /opt/homebrew on Apple Silicon and /usr/local on Intel.
+export PATH="$HOME/bin:$HOME/.local/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:$PATH"
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Add default editor
-export EDITOR=$(which nvim)
-export VISUAL=$(which nvim)
-export SUDO_EDITOR=$(which nvim)
+export EDITOR=nvim
+export VISUAL=nvim
+export SUDO_EDITOR=nvim
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
@@ -115,7 +112,9 @@ source $ZSH/oh-my-zsh.sh
 alias vim="nvim"
 
 # enable starship prompt
-eval "$(starship init zsh)"
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
 
 # keybindings
 bindkey '^f' autosuggest-accept
@@ -123,5 +122,4 @@ bindkey '^f' autosuggest-accept
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="$HOME/zig/zig-x86_64-linux-0.15.2:$PATH"
-source "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"

@@ -5,34 +5,36 @@ Public dotfiles for my development environments.
 ## Branches
 
 - `linux`: Linux desktop setup for i3, Ghostty, tmux, zsh, Starship, and Neovim.
-- `macos`: macOS setup branch. Keep macOS-specific package/install choices there.
+- `macos`: macOS setup for Ghostty, tmux, zsh, Starship, Neovim, and Git.
 
-This branch is the Linux branch. It stores files using home-relative paths so they can be copied directly into `$HOME`.
+This is the macOS branch. It stores files using home-relative paths so they can be copied directly into `$HOME`.
 
-## Included on Linux
+## Included on macOS
 
 - `.config/nvim/` - Neovim config and plugin specs, excluding generated plugin output
-- `.config/i3/` - i3, i3blocks, and related desktop status config
 - `.config/ghostty/` - Ghostty terminal config
 - `.config/tmux/` - tmux helper scripts
 - `.config/starship.toml` - Starship prompt config
-- `.screenlayout/default-layout.sh` - monitor layout
+- `.config/git/ignore` - global Git ignore rules
+- `.gitconfig` - public Git identity and settings
 - `.tmux.conf` - tmux config
-- `.zshrc` - zsh shell config
+- `.zshrc` - zsh shell config with Homebrew paths
 
 ## Intentionally Excluded
 
-Do not add browser profiles, credentials, SSH/GPG material, API tokens, agent state, generated caches, local app databases, or plugin build output. Examples: `.ssh/`, `.aws/`, `.config/google-chrome/`, `.config/BraveSoftware/`, `.config/obsidian/`, `.codex/`, `.agents/`, Neovim `plugin/packer_compiled.lua`, and package caches.
+Do not add browser profiles, credentials, SSH/GPG material, API tokens, agent state, generated caches, local app databases, or plugin build output. Examples: `.ssh/`, `.aws/`, browser profiles, `.codex/`, `.agents/`, Neovim `plugin/packer_compiled.lua`, and package caches.
 
-## Sync From This Linux Machine
+Linux-only desktop configuration such as i3 and `.screenlayout/` stays on the `linux` branch.
 
-To update this repository from the curated Linux config files in `$HOME`, run:
+## Sync From a Mac
+
+To update this repository from the curated macOS config files in `$HOME`, run:
 
 ```bash
-./sync-linux-from-home.sh
+./sync-macos-from-home.sh
 ```
 
-The script only runs on the `linux` branch, aborts if the repo has uncommitted changes, syncs the Linux allowlist from `$HOME`, commits any detected changes, and pushes only `origin linux`.
+The script only runs on the `macos` branch, aborts if the repo has uncommitted changes, syncs the macOS allowlist from `$HOME`, checks for likely secrets, commits detected changes, and pushes only `origin macos`.
 
 ## Install / Refresh
 
@@ -42,21 +44,18 @@ From this branch:
 ./reload-config.sh
 ```
 
-The script copies the tracked home-relative files into `$HOME`. Review changes before running it on a new machine.
+The script replaces the curated config paths in `$HOME`. Review changes before running it on a new machine.
 
-## Expected Linux Dependencies
+## Expected macOS Dependencies
 
-Install these through your system package manager or existing bootstrap process:
-
+- Homebrew
 - zsh and Oh My Zsh
-- zsh-syntax-highlighting
-- zsh-autosuggestions
-- starship
+- zsh-syntax-highlighting and zsh-autosuggestions
+- Starship
 - tmux
-- ghostty
-- i3, i3blocks, xrandr
-- neovim
-- git, ripgrep, fd/findutils, make, cargo
+- Ghostty
+- Neovim
+- Git, ripgrep, fd, make, Cargo, and Node.js
 - MesloLGS NF or another Nerd Font
 
 ## Neovim Plugins

@@ -10,18 +10,19 @@ copy_path() {
 
   if [[ -e "$src" ]]; then
     mkdir -p "$(dirname "$dest")"
-    cp -a "$src" "$dest"
+    rm -rf "$dest"
+    cp -pR "$src" "$dest"
     echo "copied $rel"
   fi
 }
 
+copy_path .gitconfig
 copy_path .zshrc
 copy_path .tmux.conf
+copy_path .config/git/ignore
 copy_path .config/starship.toml
 copy_path .config/nvim
-copy_path .config/i3
 copy_path .config/ghostty
 copy_path .config/tmux
-copy_path .screenlayout
 
 echo "done. restart shells/apps or source changed files as needed."
