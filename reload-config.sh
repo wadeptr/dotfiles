@@ -25,4 +25,9 @@ copy_path .config/nvim
 copy_path .config/ghostty
 copy_path .config/tmux
 
+if command -v tmux >/dev/null 2>&1 && tmux list-sessions >/dev/null 2>&1; then
+  tmux source-file "$HOME/.tmux.conf"
+  echo "reloaded ~/.tmux.conf"
+fi
+
 echo "done. restart shells/apps or source changed files as needed."
