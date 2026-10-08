@@ -22,6 +22,7 @@ paths=(
   ".config/starship.toml"
   ".config/nvim"
   ".config/i3"
+  ".config/autostart/solaar.desktop"
   ".config/ghostty"
   ".config/tmux"
   ".screenlayout"

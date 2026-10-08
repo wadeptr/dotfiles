@@ -20,6 +20,7 @@ copy_path .tmux.conf
 copy_path .config/starship.toml
 copy_path .config/nvim
 copy_path .config/i3
+copy_path .config/autostart/solaar.desktop
 copy_path .config/ghostty
 copy_path .config/tmux
 copy_path .screenlayout

@@ -133,6 +133,10 @@ exec --no-startup-id ~/.screenlayout/default-layout.sh
 # autostart apps
 #
 
+# device manager and compositor
+exec --no-startup-id solaar --window=hide
+exec --no-startup-id picom --vsync
+
 # primary browser
 exec --no-startup-id i3-msg "workspace $ws1; exec brave-browser --user-data-dir=$HOME/.config/BraveSoftware/brave-primary --class=brave-primary"
 
