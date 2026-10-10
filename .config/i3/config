@@ -117,9 +117,9 @@ bindsym $mod+a focus parent
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1:web"
 set $ws2 "2:shell"
-set $ws3 "3:vweb"
-set $ws4 "4:notes"
-set $ws5 "5:comms"
+set $ws3 "3:notes"
+set $ws4 "4"
+set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
@@ -140,23 +140,19 @@ exec --no-startup-id picom --vsync
 # primary browser
 exec --no-startup-id i3-msg "workspace $ws1; exec brave-browser --user-data-dir=$HOME/.config/BraveSoftware/brave-primary --class=brave-primary"
 
-# small delays and classes to identify secondary instances
-exec --no-startup-id sleep 2 && i3-msg "workspace $ws3; exec brave-browser --user-data-dir=$HOME/.config/BraveSoftware/brave-secondary --class=brave-secondary"
+# stagger GUI application startup
 exec --no-startup-id sleep 3 && i3-msg "workspace $ws2; exec ghostty"
-exec --no-startup-id sleep 5 && i3-msg "workspace $ws4; exec obsidian"
+exec --no-startup-id sleep 5 && i3-msg "workspace $ws3; exec obsidian"
 
 exec --no-startup-id sleep 6 && i3-msg "workspace $ws1"
 
 # assign rules
 for_window [class="^brave-primary$"] move to workspace $ws1
-assign [class="obsidian"] $ws4
-for_window [class="^brave-secondary$"] move to workspace $ws3
+assign [class="obsidian"] $ws3
 
 workspace $ws1 output DP-0
 workspace $ws2 output DP-0
 workspace $ws3 output DP-2
-workspace $ws4 output DP-2
-workspace $ws5 output DP-2
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
