@@ -111,6 +111,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias vim="nvim"
 alias home-dev="$HOME/.config/tmux/global-dev-session.sh"
+alias prep-mode="$HOME/.config/tmux/prep-mode.sh"
 
 # enable starship prompt
 if command -v starship >/dev/null 2>&1; then

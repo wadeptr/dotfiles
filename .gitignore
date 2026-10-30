@@ -6,3 +6,6 @@ nvim/plugin/packer_compiled.lua
 .DS_Store
 *.swp
 *.swo
+
+# Local coach content (machine-local, not for the repo)
+.config/tmux/coaches/
