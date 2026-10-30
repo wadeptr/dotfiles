@@ -1,0 +1,6 @@
+# This is Git's per-user configuration file.
+[user]
+	email = brock@brockwade.com
+# Please adapt and uncomment the following lines:
+#	name = Brock Wade
+#	email = brock@brockwade.com

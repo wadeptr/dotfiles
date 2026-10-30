@@ -1,30 +1,15 @@
 #!/usr/bin/env bash
 
-SESSION="home-dev"
+SESSION="cortex-dev"
 
-TMUX="$(command -v tmux 2>/dev/null || true)"
-if [[ -z "$TMUX" ]]; then
-  for candidate in /opt/homebrew/bin/tmux /usr/local/bin/tmux /usr/bin/tmux; do
-    if [[ -x "$candidate" ]]; then
-      TMUX="$candidate"
-      break
-    fi
-  done
+tmux has-session -t $SESSION 2>/dev/null
+if [ $? -eq 0 ]; then
+  exec tmux attach -t $SESSION
 fi
 
-if [[ -z "$TMUX" ]]; then
-  echo "tmux was not found. Install tmux or add it to PATH." >&2
-  exit 127
-fi
+tmux new-session -d -s $SESSION -n "local-dev"
+tmux new-window -t $SESSION -n "local-server"
 
-if "$TMUX" has-session -t "=$SESSION" 2>/dev/null; then
-  exec "$TMUX" attach-session -t "$SESSION"
-fi
+tmux select-window -t $SESSION:local-dev
+exec tmux attach -t $SESSION
 
-"$TMUX" new-session -d -s "$SESSION" -n "local-dev"
-"$TMUX" new-window -t "$SESSION" -n "training"
-"$TMUX" new-window -t "$SESSION" -n "agent"
-"$TMUX" new-window -t "$SESSION" -n "local-server"
-
-"$TMUX" select-window -t "$SESSION:local-dev"
-exec "$TMUX" attach-session -t "$SESSION"
